@@ -1,0 +1,1 @@
+/*cada archivo contendrá código JavaScript con la lógica de esa pantalla puntual.*/

@@ -13,17 +13,18 @@ body {
 
 .container {
     display: grid;
-    grid-template-rows: 100px 1fr auto;/*100px pertenecen a la altura del heade, 1fr al body y lo hace responsive, los 50px le pertenecen a la altura del footr*/
-    grid-template-columns: 200px 1fr; /*los 200px pertenecen al sidebar, el 1fr hace responsivo el resto del sitio qe no es sidebar*/
+    grid-template-rows: 100px 1fr auto;/*100px pertenecen a la altura del header, 1fr al body y lo hace responsive, los 50px le pertenecen a la altura del footr*/
+    grid-template-columns: 300px 1fr; /*los 200px pertenecen al sidebar, el 1fr hace responsivo el resto del sitio qe no es sidebar*/
     grid-template-areas:
         "header header"
         "sidebar main"
         "footer footer";
-    height: 100vh; /*Esto hace que el contenedor ocupe toda la altura del navegador*/
-    max-width: 1200px;/*limite maximo del contenedor*/
-    margin: 0 auto;
+    height: 100vh;
+    margin: 0;
     background-color: #fff;
 }
+
+/*header*/
 
 header {
     grid-area: header;
@@ -43,10 +44,20 @@ header {
     height: 80px;
 }
 
+/*sidebar*/
+
 .sidebar {
-    grid-area: sidebar;
-    background-color: #e0e0e0;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    "menusito"
+    "info";
+    background-color: #699ec9;
     padding: 20px;
+    /* grid-template-rows: auto auto;
+    grid-template-columns: auto auto; */
+    border-radius: 15px;
 }
 
 .sidebar nav ul {
@@ -55,7 +66,8 @@ header {
 }
 
 .sidebar nav ul li {
-    margin-bottom: 10px;
+    background-color: rgb(56, 180, 174);
+    border-radius: 10px;
 }
 
 .sidebar nav ul li a {
@@ -63,35 +75,62 @@ header {
     color: #333;
 }
 
-.recommendations {
-    margin-top: 20px;
+/*recomendaciones*/
+
+.recomendaciones {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background-color: whitesmoke;
+    border-radius: 10px;
 }
 
-.recommendations h2 {
-    margin-bottom: 10px;
+.recomendaciones .reco1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.recommendations p {
-    margin-bottom: 10px;
+.recomendaciones .reco1 img{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 50%;
 }
 
-.recommendations img {
-    width: 100px;
-    height: auto;
+.recomendaciones .reco2{
+    display: grid;
+    grid-template-rows: auto auto;
+    align-self: center;
+    grid-row-gap: 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    text-align: start;
+    font-size: medium;
 }
+
+.recomendaciones .reco2 h1{
+    font-size: 20px;
+    color: grey;
+}
+
+/*main*/
 
 main {
     grid-area: main;
     padding: 20px;
 }
 
-.breadcrumbs {
+.migajas {
     margin-bottom: 20px;
+    text-align: end;
 }
 
 .main-content h2 {
     margin-bottom: 10px;
 }
+
+/*footer*/
 
 footer {
     grid-area: footer;
@@ -102,14 +141,19 @@ footer {
 }
 
 .conteiner-footer{
-    display: grid;
-    grid-template-columns: auto auto auto auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* display: grid;
+    grid-template-columns: auto auto auto auto; */
     padding: 10px;
 }
 
 .textocentrado{
     text-align: center;
 }
+
+
 
 .footerdesarrollado{
     align-self:flex-end;
@@ -119,6 +163,8 @@ footer {
     font-weight: bold;
     text-decoration: underline;
 }
+
+
 
 footer div div{
     padding: 60px;
@@ -137,7 +183,7 @@ footer div ul li{
 }
 
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .container {
         grid-template-rows: 100px 1fr 50px;
         grid-template-columns: 1fr;
@@ -152,4 +198,28 @@ footer div ul li{
         grid-area: sidebar;
         padding: 10px;
     }
+} */
+
+
+/* MENU DE LA IZQUIERDA
+*/
+
+.gridizq{
+    display: grid;
+    grid-template-rows: repeat(4, 35px);
+    grid-template-columns: repeat(2, auto);
+    grid-template-areas:
+        ". inicio"
+        "arch arch"
+        "inform inform"
+        "contact contact";
+    text-align: center;
+    row-gap: 10px;
 }
+.item-ini{grid-area: inicio;}
+.item-arch{grid-area: arch;}
+.item-inform{grid-area: inform;}
+.item-contact{grid-area: contact;}
+
+/*
+*/

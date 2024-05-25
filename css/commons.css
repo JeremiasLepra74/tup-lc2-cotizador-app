@@ -53,7 +53,7 @@ header {
     grid-template-areas: 
     "menusito"
     "info";
-    background-color: #699ec9;
+    background-color: #bbdcfd;
     padding: 20px;
     /* grid-template-rows: auto auto;
     grid-template-columns: auto auto; */
@@ -66,13 +66,16 @@ header {
 }
 
 .sidebar nav ul li {
-    background-color: rgb(56, 180, 174);
+    background-color: rgb(64, 89, 172);
     border-radius: 10px;
 }
 
 .sidebar nav ul li a {
     text-decoration: none;
-    color: #333;
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 /*recomendaciones*/
@@ -126,9 +129,42 @@ main {
     text-align: end;
 }
 
-.main-content h2 {
-    margin-bottom: 10px;
+.main-content{
+    display: grid;
+    grid-template-rows: 60px auto;
 }
+
+.main-content .sel{
+    display: grid;
+    grid-template-rows: 50%;
+    background-color: #d4d4d4;
+    border-radius: 15px 10px;
+    width: 550px;
+}
+
+.main-content .sel .main-flex{
+    display: grid;
+    grid-template-columns: 40% 40% 20%;
+}
+
+.main-content .sel .item1{
+    padding: 20px;
+    align-self: center;
+    justify-self: start;
+}
+
+.main-content .sel .item2{
+    height: 60%;
+    align-self: center;
+    max-width: 250px;
+}
+
+/*Main cotizacion*/
+.maincot{
+    display: grid;
+    background-color: yellowgreen;
+}
+
 
 /*footer*/
 
@@ -137,7 +173,6 @@ footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 10px;
 }
 
 .conteiner-footer{
@@ -146,7 +181,7 @@ footer {
     justify-content: space-between;
     /* display: grid;
     grid-template-columns: auto auto auto auto; */
-    padding: 10px;
+    
 }
 
 .textocentrado{
@@ -167,7 +202,7 @@ footer {
 
 
 footer div div{
-    padding: 60px;
+    padding: 30px;
     text-align: start;
 }
 
@@ -214,12 +249,18 @@ footer div ul li{
         "inform inform"
         "contact contact";
     text-align: center;
-    row-gap: 10px;
+    row-gap: 10px;;
 }
-.item-ini{grid-area: inicio;}
+.item-ini{grid-area: inicio; color: white;}
 .item-arch{grid-area: arch;}
 .item-inform{grid-area: inform;}
 .item-contact{grid-area: contact;}
 
-/*
-*/
+/*Otras cosas*/
+.textaligncenter{
+    text-align: center;
+}
+
+.textalignend{
+    text-align: end;
+}

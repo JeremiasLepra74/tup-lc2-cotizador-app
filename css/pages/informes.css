@@ -137,7 +137,7 @@ header {
 }
 .info-menu{
     grid-area: menu;
-    
+    align-self: center;
 }
 .info-tabla{
     grid-area: tabla;

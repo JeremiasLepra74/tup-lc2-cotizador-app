@@ -122,7 +122,53 @@ header {
 /*MAIN*/
 .main-grid{
     display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 60% 40%;
+    grid-template-areas: 
+    "menu foto"
+    "tabla tabla";
+    padding: 40px;
+    padding-top: 40px;
+    height: 600px;
 }
+
+.info-informe{
+    grid-area: foto;
+}
+.info-menu{
+    grid-area: menu;
+    
+}
+.info-tabla{
+    grid-area: tabla;
+}
+
+.sel{
+    display: grid;
+    grid-template-rows: 50%;
+    background-color: #d4d4d4;
+    border-radius: 15px 10px;
+    width: 90%;
+}
+
+.sel .main-flex{
+    display: grid;
+    grid-template-columns: 40% 40% 20%;
+}
+
+.sel .item1{
+    padding: 20px;
+    align-self: center;
+    justify-self: start;
+}
+
+.sel .item2{
+    height: 60%;
+    align-self: center;
+    max-width: 250px;
+}
+
+
 /*footer*/
 
 footer {

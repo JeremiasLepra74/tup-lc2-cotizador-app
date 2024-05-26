@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador de Monedas</title>
     <link rel="icon" href="/img/icono_titulo_web3.png">
-    <link rel="stylesheet" href="/css/pages/">
+    <link rel="stylesheet" href="./css/pages/Contacto.css">
 </head>
 
 <body>
@@ -21,10 +21,10 @@
         <section class="sidebar">
             <nav>
                 <ul class="gridizq">
-                    <li class="item-ini"><a href="#">Home</a></li>
-                    <li class="item-arch"><a href="#">MI ARCHIVO</a></li>
-                    <li class="item-inform"><a href="#">INFORMES</a></li>
-                    <li class="item-contact"><a href="#">CONTACTENOS</a></li>
+                    <li class="item-ini"><a href="./index.html">Home</a></li>
+                    <li class="item-arch"><a href="./Miarchivo.html">MI ARCHIVO</a></li>
+                    <li class="item-inform"><a href="./informes.html">INFORMES</a></li>
+                    <li class="item-contact"><a href="./Contacto.html">CONTACTENOS</a></li>
                 </ul>
             </nav>
             <div class="recomendaciones">
@@ -38,12 +38,51 @@
             </div>
         </section>
         <main>
-            <h1 style="font-weight: bold; text-align: center;">Contacto Web cotizaciones</h1>   
-            <div class=".main-grid">
-                <div class="item-contacto">1</div>
-                <div class="item-parrafo">2</div>
-                <div class="item-datos">3</div>
+            <h1 style="font-weight: bold; text-align: center;">Contacto Web cotizaciones</h1>
+            <div class="main-grid">
+                <div class="item-contacto">
+                    <p style="font-weight: bold; font-size: 20px;">DATOS DE CONTACTO</p>
+                    <form action="/accion.php" style="padding-top: 30px;">
+                        <div style="padding-bottom: 30px;">
+                            <label for="nombre" style="font-size: 18px; padding-right: 30px;">Nombre: </label>
+                            <input type="text" name="nombre" id="" size=""
+                                style="height: 35px; width: 300px;">
+                        </div>
+                        <div>
+                            <label for="email" style="font-size: 18px; padding-right: 50px;">Email: </label>
+                            <input type="email" name="email" id="" size=""
+                                style="height: 35px; width: 300px;">
+                        </div>
 
+                        <div style="padding-top: 30px;">
+                            <label for="mensaje" style="font-size: 18px; padding-right: 30px;">Mensaje: </label>
+                            <input type="text" name="mensaje" id="mensaje"
+                                style="height: 150px; width: 300px;">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="item-parrafo">
+                    <p>Si tiene alguna sugerencia o inconveniente por favor complete el
+                    siguiente formulario y envíenoslo. Lo contactaremos a la brevedad.</p>
+                    <br>
+                    <br>
+                    <p>
+                        Esta web esta desarrollada utilizando <a href="#">https://dolarapi.com/</a>
+                    </p>
+                </div>
+                <div class="item-datos">
+                    <div>
+                        <p style="font-weight: bold; font-size: 25px;">DATOS DE CONTACTO</p>
+                        <P>Universidad Tecnologica Nacional</P>
+                        <p>ZEBALLOS 1341 - S2000BQA</p>
+                        <P>ROSARIO</P>
+                        <p>0341 - 4481871</p>
+                    </div>
+                    <div>
+                        <img src="./img/utn.png" alt="" style="width: 100%; height: 75%;">
+                    </div>
+                </div>
             </div>
         </main>
         <footer>

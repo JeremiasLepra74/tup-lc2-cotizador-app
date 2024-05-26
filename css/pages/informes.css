@@ -137,6 +137,7 @@ header {
 }
 .info-menu{
     grid-area: menu;
+    
 }
 .info-tabla{
     grid-area: tabla;

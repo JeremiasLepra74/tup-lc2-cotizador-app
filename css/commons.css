@@ -137,7 +137,7 @@ main {
 
 .main-content .sel{
     display: grid;
-    grid-template-rows: 50%;
+    grid-template-rows: 50% 50%;
     background-color: #d4d4d4;
     border-radius: 15px 10px;
     width: 550px;

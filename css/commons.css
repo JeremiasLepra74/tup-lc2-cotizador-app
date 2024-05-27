@@ -53,7 +53,6 @@ header {
     font-size: 24px;
     margin: 0;
     padding: 0;
-   
 }
 
 /*sidebar*/
@@ -94,6 +93,7 @@ header {
     width: 20px; /* Ancho del icono */
     height: 20px; /* Altura del icono */
     margin-right: 10px; /* Espaciado entre el icono y el texto */
+    margin-top: 7px;
 }
 
 /*recomendaciones*/
@@ -227,7 +227,6 @@ main {
 .item-cripto{grid-area: cripto; background-color: white;}
 .item-tarjeta{grid-area: tarjeta; background-color: white;}
 .item-mep{grid-area: mep; background-color: white;}
-
 
 /*footer*/
 

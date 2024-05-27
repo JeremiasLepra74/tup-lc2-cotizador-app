@@ -41,8 +41,18 @@ header {
 .logo {
     position: absolute;
     top: 10px;
-    left: 10px;
-    height: 80px;
+    left: 550px;
+    height: 60px;
+}
+
+.title_header{
+    position: absolute;
+    top: 20px;
+    left: 650px;
+    color: white; /* Ajusta el color del texto para que contraste con la imagen de fondo */
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
 }
 
 /*sidebar*/
@@ -77,6 +87,13 @@ header {
     font-size: medium;
     font-weight: bold;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.nav-icon {
+    width: 20px; /* Ancho del icono */
+    height: 20px; /* Altura del icono */
+    margin-right: 10px; /* Espaciado entre el icono y el texto */
+    margin-top: 7px;
 }
 
 /*recomendaciones*/

@@ -102,6 +102,7 @@ header {
     grid-template-columns: 40% 60%;
     background-color: whitesmoke;
     border-radius: 10px;
+    height: 220px;
 }
 
 .recomendaciones .reco1{

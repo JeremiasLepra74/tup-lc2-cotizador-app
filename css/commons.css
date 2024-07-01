@@ -313,6 +313,8 @@ footer div ul li{
     text-align: center;
     row-gap: 10px;;
 }
+
+   
 .item-ini{grid-area: inicio; color: white;}
 .item-arch{grid-area: arch;}
 .item-inform{grid-area: inform;}

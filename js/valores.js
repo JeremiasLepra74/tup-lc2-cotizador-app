@@ -1,35 +1,29 @@
-fetch("https://dolarapi.com/v1/dolares/oficial")
-    .then(response => response.json())
-    .then(data => MostrarPrecio(data));
+document.addEventListener('DOMContentLoaded', () => {
+    fetchData("https://dolarapi.com/v1/dolares/oficial", 'compra', 'venta');
+    fetchData("https://dolarapi.com/v1/dolares/contadoconliqui", 'compraccl', 'ventaccl');
+    fetchData("https://dolarapi.com/v1/dolares/blue", 'comprablue', 'ventablue');
+    fetchData("https://dolarapi.com/v1/dolares/cripto", 'compracripto', 'ventacripto');
+    fetchData("https://dolarapi.com/v1/dolares/tarjeta", 'compratarjeta', 'ventatarjeta');
+    fetchData("https://dolarapi.com/v1/dolares/mayorista", 'compramep', 'ventamep');
+});
 
-const MostrarPrecio = (data) => {
-    console.log(data)
-    let preciocompra = data.compra
-    document.getElementById("compra").innerHTML = preciocompra
-    let precioventa = data.venta
-    document.getElementById("venta").innerHTML = precioventa
-}
+const fetchData = (url, compraId, ventaId) => {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => updatePrices(data, compraId, ventaId))
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
+};
 
-fetch("https://dolarapi.com/v1/dolares/contadoconliqui")
-    .then(response => response.json())
-    .then(data => ccl(data));
+const updatePrices = (data, compraId, ventaId) => {
+    console.log(data); // Verifica la estructura de los datos
+    let preciocompra = data.compra;
+    let precioventa = data.venta;
 
-const ccl = (data) => {
-    console.log(data)
-    let compraccl = data.compra
-    document.getElementById("compraccl").innerHTML = compraccl
-    let ventaccl = data.venta
-    document.getElementById("ventaccl").innerHTML = ventaccl
-}
-
-fetch("https://dolarapi.com/v1/dolares/blue")
-    .then(response => response.json())
-    .then(data => blue(data));
-
-const blue = (data) => {
-    console.log(data)
-    let comprablue = data.compra
-    document.getElementById("comprablue").innerHTML = comprablue
-    let ventablue = data.venta
-    document.getElementById("ventablue").innerHTML = ventablue
-}
+    document.getElementById(compraId).innerHTML = preciocompra;
+    document.getElementById(ventaId).innerHTML = precioventa;
+};

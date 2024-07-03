@@ -90,31 +90,37 @@
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
                     <script>
-                        const ctx = document.getElementById('myChart');
-
-                        var lineChart = new Chart(speedCanvas, {
-                            type: 'line',
-                            data: speedData,
-                            options: chartOptions
-                        });
-
-                        var speedData = {
-                            labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
-                            datasets: [{
-                                label: "Car Speed",
-                                data: [0, 59, 75, 20, 20, 55, 40],
-                            }]
+                        // Obtener una referencia al elemento canvas del DOM
+                        const $grafica = document.getElementById('myChart');
+                        // Las etiquetas son las que van en el eje X. 
+                        const etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
+                        // Podemos tener varios conjuntos de datos. Comencemos con uno
+                        const datosVentas2020 = {
+                            label: "Ventas por mes",
+                            data: [0, 500, 1500], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+                            borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+                            borderWidth: 1,// Ancho del borde
                         };
-                        var chartOptions = {
-                            legend: {
-                                display: true,
-                                position: 'top',
-                                labels: {
-                                    boxWidth: 80,
-                                    fontColor: 'black'
-                                }
+                        new Chart($grafica, {
+                            type: 'line',// Tipo de gráfica
+                            data: {
+                                labels: etiquetas,
+                                datasets: [
+                                    datosVentas2020,
+                                    // Aquí más datos...
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }],
+                                },
                             }
-                        };
+                        });
                     </script>
 
                 </div>

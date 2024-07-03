@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selected = document.getElementById('seleccionable').value;
         for (const key in sections) {
             if (sections.hasOwnProperty(key)) {
-                sections[key].style.display = (selected === 'TODAS' || selected === key) ? 'flex' : 'none';
+                sections[key] = (selected === 'TODAS' || selected === key) ? 'flex' : 'none';
             }
         }
     };

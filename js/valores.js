@@ -34,12 +34,12 @@ const fetchData = (url, compraId, ventaId) => {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error('Problemas de conexion ' + response.statusText);
             }
             return response.json();
         })
         .then(data => updatePrices(data, compraId, ventaId))
-        .catch(error => console.error('There was a problem with the fetch operation:', error));
+        .catch(error => console.error('Problemas en el fetch:', error));
 };
 
 const updatePrices = (data, compraId, ventaId) => {

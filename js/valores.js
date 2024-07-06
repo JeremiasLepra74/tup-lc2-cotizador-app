@@ -42,7 +42,7 @@ const fetchData = (url, compraId, ventaId) => {
         .catch(error => console.error('There was a problem with the fetch operation:', error));
 };
 
-export const updatePrices = (data, compraId, ventaId) => {
+const updatePrices = (data, compraId, ventaId) => {
     console.log(data); // Verifica la estructura de los datos
     let preciocompra = data.compra;
     let precioventa = data.venta;

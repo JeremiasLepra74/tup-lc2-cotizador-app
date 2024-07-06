@@ -83,47 +83,48 @@
                     <p
                         style="font-weight: bold; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 29px">
                         Informe</p>
-                    <div>
-                        <canvas id="myChart"></canvas>
-                    </div>
-
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                    <script>
-                        // Obtener una referencia al elemento canvas del DOM
-                        const $grafica = document.getElementById('myChart');
-                        // Las etiquetas son las que van en el eje X. 
-                        const etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
-                        // Podemos tener varios conjuntos de datos. Comencemos con uno
-                        const datosVentas2020 = {
-                            label: "Dolar Blue",
-                            data: [1000, 500, 1500],
-                            borderColor: "rgba(54, 162, 235, 1)",
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
-                            borderWidth: 1,
-                            fill: true
-
-                        };
-                        new Chart($grafica, {
-                            type: 'line',// Tipo de gráfica
-                            data: {
-                                labels: etiquetas,
-                                datasets: [
-                                    datosVentas2020,
-                                    // Aquí más datos...
-                                ]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }],
+                        <div>
+                            <canvas id="myChart"></canvas>
+                        </div>
+    
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+                        <script>
+                            // Obtener una referencia al elemento canvas del DOM
+                            const $grafica = document.getElementById('myChart');
+                            // Las etiquetas son las que van en el eje X. 
+                            const etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
+                            // Podemos tener varios conjuntos de datos. Comencemos con uno
+                            const datosVentas2020 = {
+                                label: "Dolar Blue",
+                                data: [1000, 1200, 1500],
+                                borderColor: "rgba(54, 162, 235, 1)",
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+                                borderWidth: 1,
+                                fill: true
+    
+                            };
+                            new Chart($grafica, {
+                                type: 'line',// Tipo de gráfica
+                                data: {
+                                    labels: etiquetas,
+                                    datasets: [
+                                        datosVentas2020,
+                                        // Aquí más datos...
+                                    ]
                                 },
-                            }
-                        });
-                    </script>
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }],
+                                    },
+                                }
+                            });
+                        </script>
+
                 </div>
                 <div class="info-tabla" style="background-color: lightblue; border-radius: 20px; border: 1px solid;">
                     <table style="width: 100%; border-radius: 20px;">

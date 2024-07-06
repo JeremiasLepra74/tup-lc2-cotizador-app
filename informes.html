@@ -96,11 +96,13 @@
                         const etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
                         // Podemos tener varios conjuntos de datos. Comencemos con uno
                         const datosVentas2020 = {
-                            label: "Ventas por mes",
-                            data: [1000, 500, 1500], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                            label: "Dolar Blue",
+                            data: [1000, 500, 1500],
+                            borderColor: "rgba(54, 162, 235, 1)",
                             backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
-                            borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
-                            borderWidth: 1,// Ancho del borde
+                            borderWidth: 1,
+                            fill: true
+
                         };
                         new Chart($grafica, {
                             type: 'line',// Tipo de gráfica

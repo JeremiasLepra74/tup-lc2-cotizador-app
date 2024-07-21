@@ -28,25 +28,56 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('seleccionable').addEventListener('change', updateVisibility);
 
     updateVisibility(); // Llamamos para asegurarnos de que la selección inicial se refleje correctamente
+
+    // Actualiza cada 5 minutos
+    setInterval(() => {
+        fetchData("https://dolarapi.com/v1/dolares/oficial", 'compra', 'venta');
+        fetchData("https://dolarapi.com/v1/dolares/contadoconliqui", 'compraccl', 'ventaccl');
+        fetchData("https://dolarapi.com/v1/dolares/blue", 'comprablue', 'ventablue');
+        fetchData("https://dolarapi.com/v1/dolares/cripto", 'compracripto', 'ventacripto');
+        fetchData("https://dolarapi.com/v1/dolares/tarjeta", 'compratarjeta', 'ventatarjeta');
+        fetchData("https://dolarapi.com/v1/dolares/mayorista", 'compramep', 'ventamep');
+    }, 5 * 60 * 1000);
 });
 
 const fetchData = (url, compraId, ventaId) => {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Problemas de conexion ' + response.statusText);
+                throw new Error('Problemas de conexión: ' + response.statusText);
             }
             return response.json();
         })
-        .then(data => updatePrices(data, compraId, ventaId))
-        .catch(error => console.error('Problemas en el fetch:', error));
+        .then(data => {
+            updatePrices(data, compraId, ventaId);
+            document.getElementById('fecha-actualizacion').innerText = new Date().toLocaleString();
+            document.getElementById('error-message').style.display = 'none'; // Ocultar mensaje de error
+        })
+        .catch(error => {
+            console.error('Problemas en el fetch:', error);
+            document.getElementById('error-message').innerText = 'No se pudieron cargar los datos: ' + error.message;
+            document.getElementById('error-message').style.display = 'block';
+        });
 };
 
 const updatePrices = (data, compraId, ventaId) => {
-    console.log(data); // Verifica la estructura de los datos
     let preciocompra = data.compra;
     let precioventa = data.venta;
 
     document.getElementById(compraId).innerHTML = preciocompra;
     document.getElementById(ventaId).innerHTML = precioventa;
+
+    // Almacenar los datos en localStorage
+    localStorage.setItem(compraId, JSON.stringify({ compra: preciocompra, venta: precioventa }));
 };
+
+// Recuperar datos almacenados al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    Object.keys(sections).forEach(key => {
+        const storedData = JSON.parse(localStorage.getItem(`${key}_compra`));
+        if (storedData) {
+            document.getElementById(`${key}_compra`).innerHTML = storedData.compra;
+            document.getElementById(`${key}_venta`).innerHTML = storedData.venta;
+        }
+    });
+});

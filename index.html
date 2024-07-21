@@ -8,41 +8,41 @@
     <title>Cotizador de Monedas</title>
     <link rel="icon" href="/img/icono_titulo_web3.png">
     <link rel="stylesheet" href="/css/commons.css">
-    <script src="./js/valores.js"></script>
+    <script src="./js/valores.js" defer></script>
 </head>
+
 <body>
     <div class="container">
         <header>
             <div class="header-content">
                 <img src="/img/header-background.jpg" alt="Header Background" class="header-bg">
-                <img src="/img/icono_titulo_web.png" alt="Logo" class="logo"><!--este logo esta en cualquiera-->
+                <img src="/img/icono_titulo_web.png" alt="Logo" class="logo">
                 <h1 class="title_header">Cotizador Web</h1>
             </div>
-            <script src="/css/commons.css"></script>
         </header>
         <section class="sidebar">
             <nav>
                 <ul class="gridizq">
                     <li class="item-ini">
                         <a href="./index.html">
-                            <img src="/img/casa.png" alt="Home Icon" class="nav-icon">
-                            HOME
+                            <img src="/img/casa.png" alt="Home Icon" class="nav-icon"> HOME
                         </a>
+                    </li>
                     <li class="item-arch">
                         <a href="./Miarchivo.html">
-                            <img src="/img/carpeta.png" alt="Archive Icon" class="nav-icon">
-                            MI ARCHIVO
+                            <img src="/img/carpeta.png" alt="Archive Icon" class="nav-icon"> MI ARCHIVO
                         </a>
+                    </li>
                     <li class="item-inform">
                         <a href="./informes.html">
-                            <img src="/img/forma.png" alt="Informes Icon" class="nav-icon">
-                            INFORMES
+                            <img src="/img/forma.png" alt="Informes Icon" class="nav-icon"> INFORMES
                         </a>
+                    </li>
                     <li class="item-contact">
                         <a href="./Contacto.html">
-                            <img src="/img/periodico.png" alt="Contact Icon" class="nav-icon">
-                            CONTACTENOS
+                            <img src="/img/periodico.png" alt="Contact Icon" class="nav-icon"> CONTACTENOS
                         </a>
+                    </li>
                 </ul>
             </nav>
             <div class="recomendaciones">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="reco2">
                     <h1>Roger Medina</h1>
-                    <p>Experto en puchis, juegos de azar y tirar dados</p>
+                    <p>Cotizador, venta y compra de dolares.</p>
                 </div>
             </div>
         </section>
@@ -76,7 +76,7 @@
                         </select>
                     </div>
                 </div>
-                <p class="textalignend">Datos actualizados : hoy mismo</p>
+                <p class="textalignend">Datos actualizados: <span id="fecha-actualizacion"></span></p>
             </div>
             
             <div class="maincot">
@@ -133,11 +133,11 @@
                         <div class="itemder">
                             <div style="padding: 8px 0px;">
                                 <p style="text-align: center; font-size: small; color: grey;">COMPRA</p>
-                                <p id="compracripto" style="text-align: center; font-weight: bold;">$985</p>
+                                <p id="compracripto" style="text-align: center; font-weight: bold;"></p>
                             </div>
                             <div style="padding: 8px 0px;">
                                 <p style="text-align: center; font-size: small; color: grey;">VENTA</p>
-                                <p id="ventacripto" style="text-align: center; font-weight: bold;">$985</p>
+                                <p id="ventacripto" style="text-align: center; font-weight: bold;"></p>
                             </div>
                         </div>
                     </div>
@@ -148,11 +148,11 @@
                         <div class="itemder">
                             <div style="padding: 8px 0px;">
                                 <p style="text-align: center; font-size: small; color: grey;">COMPRA</p>
-                                <p id="compratarjeta" style="text-align: center; font-weight: bold;">$985</p>
+                                <p id="compratarjeta" style="text-align: center; font-weight: bold;"></p>
                             </div>
                             <div style="padding: 8px 0px;">
                                 <p style="text-align: center; font-size: small; color: grey;">VENTA</p>
-                                <p id="ventatarjeta" style="text-align: center; font-weight: bold;">$985</p>
+                                <p id="ventatarjeta" style="text-align: center; font-weight: bold;"></p>
                             </div>
                         </div>
                     </div>
@@ -163,11 +163,11 @@
                         <div class="itemder">
                             <div style="padding: 8px 0px;">
                                 <p style="text-align: center; font-size: small; color: grey;">COMPRA</p>
-                                <p id="compramep" style="text-align: center; font-weight: bold;">$985</p>
+                                <p id="compramep" style="text-align: center; font-weight: bold;"></p>
                             </div>
                             <div style="padding: 8px 0px;">
                                 <p style="text-align: center; font-size: small; color: grey;">VENTA</p>
-                                <p id="ventamep" style="text-align: center; font-weight: bold;">$985</p>
+                                <p id="ventamep" style="text-align: center; font-weight: bold;"></p>
                             </div>
                         </div>
                     </div>
@@ -182,34 +182,24 @@
                         <li>¿Quienes somos?</li>
                         <li>Socios estrategicos</li>
                         <li>Trabaje con nosotros</li>
-                        <li>Ayuda</li>
                     </ul>
                 </div>
                 <div>
-                    <b>ACCESOS</b>
+                    <b>PARTNERS</b>
                     <ul>
-                        <li>Inicio</li>
-                        <li>Mi Archivo</li>
-                        <li>Informes</li>
-                        <li>Contáctenos</li>
+                        <li>Grupo TBA</li>
+                        <li>Gmail</li>
                     </ul>
                 </div>
                 <div>
-                    <b>CONTACTO</b>
-                    <p class="footercontacto">Universidad Tecnologica Nacional</p>
-                    <p class="footercontacto">ZEBALLOS 1341 -S2000BQA -</p>
-                    <p class="footercontacto">ROSARIO</p>
-                    <p class="footercontacto">0341 - 4481871</p>
-                    <p class="textocentrado negrita"> ¡Escribanos!</p>
-                </div>
-                <div class="footerdesarrollado">
-                    <p class="negrita">Desarrollado por</p>
-                    <p>Nombre y apellido (55555)</p>
-                    <p>TUP07 - 2024</p>
+                    <b>CONTACTOS</b>
+                    <ul>
+                        <li>Contactenos</li>
+                    </ul>
                 </div>
             </div>
-            <p>TUP - Catedra de Laboratorio de Computacion 2 - 2024</p>
         </footer>
     </div>
 </body>
+
 </html>

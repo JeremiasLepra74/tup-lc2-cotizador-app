@@ -186,10 +186,10 @@ main {
     border-radius: 60px;
 }
 
-.cotint{
+.cotint {
     display: grid;
     grid-template-rows: repeat(4, 50px);
-    grid-template-columns: repeat(2, 400px);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-areas:
         "oficial ccl"
         "blues cripto"
@@ -198,28 +198,45 @@ main {
     padding: 40px 70px;
     row-gap: 20px;
     column-gap: 120px;
-    /* border-style: solid; */
 }
 
-.gridint{
+.gridint {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 0.6fr auto; /* Contenido Compra/Venta, Contenido Compra/Venta, Corazón */
+    align-items: center; /* Centra verticalmente */
+    background-color: white;
     border-style: solid;
     border-color: #a7a7a7;
+    padding-right: 5px;
 }
 
-.gridint .itemizq{
+.gridint .itemizq {
     display: flex;
     justify-content: left;
     align-items: center;
     padding-left: 5px;
 }
 
-
-.gridint .itemder{
-    display: grid;
-    grid-template-columns: 50% 50%;
+.gridint .itemder {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 15px;
 }
+
+.favorite-icon {
+    font-size: 36px;
+    color: grey;
+    cursor: pointer;
+    align-self: center; /* Centra verticalmente en su celda */
+    justify-self: end; /* Alinea a la derecha */
+    grid-column: 3; /* Ubica en la tercera columna */
+}
+
+
+
+
+
 
 .item-oficial{grid-area: oficial; background-color: white;}
 .item-ccl{grid-area: ccl; background-color: white;}

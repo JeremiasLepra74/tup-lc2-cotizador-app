@@ -136,6 +136,12 @@ header {
     color: grey;
 }   
 /*MAIN*/
+
+.migajas {
+    margin-bottom: 20px;
+    text-align: end;
+}
+
 .main-grid{
     display: grid;
     grid-template-columns: 45% 50%;

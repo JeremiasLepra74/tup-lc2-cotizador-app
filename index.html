@@ -56,9 +56,9 @@
         </section>
         <main style="border: 1px solid blue; border-radius: 30px;">
             <div class="migajas">
-                <p>Home > Section > Subsection</p>
+                <p>Home > Pizarra de cotizaciones</p>
             </div>
-            <h1 class="textaligncenter">Pizarra de cotizaciones</h1>
+            <h1 class="textaligncenter" style="margin-top: -10px; margin-bottom: 8px;">Pizarra de cotizaciones</h1>
             <div class="main-content">
                 <div class="sel">
                     <div class="main-flex">
@@ -75,7 +75,7 @@
                         </select>
                     </div>
                 </div>
-                <p class="textalignend">Datos actualizados: <span id="fecha-actualizacion"></span></p>
+                <p class="textalignend" style="margin-bottom: 7px; margin-right: 25px;">Datos actualizados: <span id="fecha-actualizacion"></span></p>
             </div>
             
             <div class="maincot">
@@ -181,10 +181,36 @@
                         </div>
                         <span class="favorite-icon" data-cotizacion="mep" onclick="toggleFavorite(this)">&#9829;</span>
                     </div>
+
+                    <div class="item-mayorista gridint">
+                        <div class="itemizq">
+                            <p style="font-weight: bold;">MAYORISTA</p>
+                        </div>
+                        <div class="itemder">
+                            <div style="padding: 8px 0px;">
+                                <p style="text-align: center; font-size: small; color: grey;">COMPRA</p>
+                                <p id="compramayo" style="text-align: center; font-weight: bold;"></p>
+                            </div>
+                            <div style="padding: 8px 0px;">
+                                <p style="text-align: center; font-size: small; color: grey;">VENTA</p>
+                                <p id="ventamayo" style="text-align: center; font-weight: bold;"></p>
+                            </div>
+                        </div>
+                        <span class="favorite-icon" data-cotizacion="mep" onclick="toggleFavorite(this)">&#9829;</span>
+                    </div>
                 </div>
+    
                 
             </div>
-            
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                
+                <p style="flex: 1; margin-right: 10px; font-size: 14px;">
+                    Haga clic en el corazón para guardar los datos de la cotización en sus favoritos.
+                </p>
+                <p style="flex: 1; text-align: right; font-size: 14px;">
+                    Datos proporcionados por <a href="https://dolarapi.com" target="_blank" style="color: blue; text-decoration: underline;">DolarAPI</a>
+                </p>
+            </div>
         </main>
         <footer>
             <div class="conteiner-footer">
@@ -194,22 +220,33 @@
                         <li>¿Quienes somos?</li>
                         <li>Socios estrategicos</li>
                         <li>Trabaje con nosotros</li>
+                        <li>Ayuda</li>
                     </ul>
                 </div>
                 <div>
-                    <b>PARTNERS</b>
+                    <b>ACCESOS</b>
                     <ul>
-                        <li>Grupo TBA</li>
-                        <li>Gmail</li>
+                        <li>Inicio</li>
+                        <li>Mi Archivo</li>
+                        <li>Informes</li>
+                        <li>Contáctenos</li>
                     </ul>
                 </div>
                 <div>
-                    <b>CONTACTOS</b>
-                    <ul>
-                        <li>Contactenos</li>
-                    </ul>
+                    <b>CONTACTO</b>
+                    <p class="footercontacto">Universidad Tecnologica Nacional</p>
+                    <p class="footercontacto">ZEBALLOS 1341 -S2000BQA -</p>
+                    <p class="footercontacto">ROSARIO</p>
+                    <p class="footercontacto">0341 - 4481871</p>
+                    <p class="textocentrado negrita"> ¡Escribanos!</p>
+                </div>
+                <div class="footerdesarrollado">
+                    <p class="negrita">Desarrollado por</p>
+                    <p>Nombre y apellido (55555)</p>
+                    <p>TUP07 - 2024</p>
                 </div>
             </div>
+            <p>TUP - Catedra de Laboratorio de Computacion 2 - 2024</p>
         </footer>
     </div>
 </body>

@@ -137,6 +137,14 @@ header {
 }
 
 /*MAIN*/
+
+.migajas {
+    margin-bottom: 20px;
+    text-align: end;
+    padding-top: 15px;
+    padding-right: 20px;
+}
+
 .main-grid{
     display: grid;
     grid-template-columns: 50% 50%;
@@ -219,8 +227,6 @@ footer {
     text-decoration: underline;
 }
 
-
-
 footer div div{
     padding: 30px;
     text-align: start;
@@ -256,8 +262,7 @@ footer div ul li{
 } */
 
 
-/* MENU DE LA IZQUIERDA
-*/
+/* MENU DE LA IZQUIERDA */
 
 .gridizq{
     display: grid;

@@ -16,6 +16,12 @@ function clearLocalStorage() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    const fechaActualizacionElement = document.getElementById('fecha-actualizacion');
+    if (fechaActualizacionElement) {
+        fechaActualizacionElement.innerText = new Date().toLocaleString(); // Actualiza la fecha de última actualización
+    }
+
     fetchData("https://dolarapi.com/v1/dolares/oficial", 'compra', 'venta', 'nombre-oficial', 'fechaActualizacion-oficial');
     fetchData("https://dolarapi.com/v1/dolares/contadoconliqui", 'compraccl', 'ventaccl', 'nombre-ccl', 'fechaActualizacion-ccl');
     fetchData("https://dolarapi.com/v1/dolares/blue", 'comprablue', 'ventablue', 'nombre-blue', 'fechaActualizacion-blue');
@@ -50,11 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchData("https://dolarapi.com/v1/dolares/tarjeta", 'compratarjeta', 'ventatarjeta', 'nombre-tarjeta', 'fechaActualizacion-tarjeta');
         fetchData("https://dolarapi.com/v1/dolares/mayorista", 'compramayo', 'ventamayo', 'nombre-mayorista', 'fechaActualizacion-mayorista');
         fetchData("https://dolarapi.com/v1/dolares/bolsa", 'compramep', 'ventamep', 'nombre-mep', 'fechaActualizacion-mep');
+
+        if (fechaActualizacionElement) {
+            fechaActualizacionElement.innerText = new Date().toLocaleString(); // Actualiza la fecha de última actualización
+        }
     }, 5 * 60 * 1000);
 });
-
-// Limpiar localStorage al cargar la página
-clearLocalStorage();
 
 const fetchData = (url, compraId, ventaId, nombreId, fechaActualizacionId) => {
     fetch(url)
@@ -67,10 +74,21 @@ const fetchData = (url, compraId, ventaId, nombreId, fechaActualizacionId) => {
         .then(data => {
             updatePrices(data, compraId, ventaId, nombreId, fechaActualizacionId); // Actualiza los precios en el DOM y almacena en localStorage
         
-            const fechaActualizacionElement = document.getElementById('fecha-actualizacion');
-            if (fechaActualizacionElement) {
-                fechaActualizacionElement.innerText = new Date().toLocaleString(); // Actualiza la fecha de última actualización
-            }
+            const storedCotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
+
+            const nuevaCotizacion = {
+                nombre: data.nombre,
+                compra: data.compra,
+                venta: data.venta,
+                fechaActualizacion: new Date().toLocaleString()
+            };
+
+            // Añadir la nueva cotización al array y almacenarlo en localStorage
+            storedCotizaciones.push(nuevaCotizacion);
+            localStorage.setItem('cotizaciones', JSON.stringify(storedCotizaciones));
+
+            console.log('Cotizaciones guardadas:', storedCotizaciones);
+
         })
         .catch(error => {
             console.error('Problemas en el fetch:', error);

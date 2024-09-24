@@ -236,24 +236,6 @@ footer div ul li{
 }
 
 
-/* @media (max-width: 768px) {
-    .container {
-        grid-template-rows: 100px 1fr 50px;
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "header"
-            "main"
-            "sidebar"
-            "footer";
-    }
-    
-    .sidebar {
-        grid-area: sidebar;
-        padding: 10px;
-    }
-} */
-
-
 /* MENU DE LA IZQUIERDA
 */
 
@@ -281,4 +263,55 @@ footer div ul li{
 
 .textalignend{
     text-align: end;
+}
+
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px; /* Reduce el padding para hacer las filas más finas */
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+#table-container {
+    max-height: 500px; /* Aumenta la altura para ver más filas */
+    overflow-y: auto;
+    background-color: lightblue;
+    border-radius: 20px;
+    border: 1px solid;
+    padding-top: 20px;
+}
+
+/* Opcional: Estilo para el botón eliminar */
+#eliminar {
+    padding: 4px 10px;
+    background-color: rgb(209, 27, 27);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#eliminar:hover {
+    background-color: darkred;
+}
+
+#printButton {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#printButton img {
+    width: 30px;
+    height: 30px;
+    margin-right: 40px;
+    margin-bottom: 3px;
+}
+
+#printButton:hover img {
+    opacity: 0.8;
 }

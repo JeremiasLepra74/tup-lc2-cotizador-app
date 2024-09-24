@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="/css/pages/miarchivo.css">
     <script src="./js/pages/miarchivo.js" defer></script>
 </head>
-
 <body>
     <div class="container">
         <header>
@@ -27,21 +25,25 @@
                             <img src="/img/casa.png" alt="Home Icon" class="nav-icon">
                             HOME
                         </a>
+                    </li>
                     <li class="item-arch">
                         <a href="./Miarchivo.html">
                             <img src="/img/carpeta.png" alt="Archive Icon" class="nav-icon">
                             MI ARCHIVO
                         </a>
+                    </li>
                     <li class="item-inform">
                         <a href="./informes.html">
                             <img src="/img/forma.png" alt="Informes Icon" class="nav-icon">
                             INFORMES
                         </a>
+                    </li>
                     <li class="item-contact">
                         <a href="./Contacto.html">
                             <img src="/img/periodico.png" alt="Contact Icon" class="nav-icon">
                             CONTACTENOS
                         </a>
+                    </li>
                 </ul>
             </nav>
             <div class="recomendaciones">
@@ -50,17 +52,21 @@
                 </div>
                 <div class="reco2">
                     <h1>Roger Medina</h1>
-                    <p>Cotizador, venta y compra de dolares.</p>
+                    <p>Cotizador, venta y compra de dólares.</p>
                 </div>
             </div>
         </section>
         <main style="border: 1px solid blue; border-radius: 30px; padding: 20px;">
             <div class="migajas">
-                <p><a href="./index.html" style="color: blue; text-decoration: underline;">Home</a> > Mi Archivo >
-                    Cotizaciones guardadas agrupadas por fecha</p>
+                <p><a href="./index.html" style="color: blue; text-decoration: underline;">Home</a> > Mi Archivo > Cotizaciones guardadas agrupadas por fecha</p>
             </div>
-            <p style="text-align: center; font-weight: bold; font-size: 28px; padding-bottom: 20px;">Mi Archivo</p>
-            <div style="background-color: lightblue; border-radius: 20px; border: 1px solid; height: 70%; padding-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="text-align: center; flex-grow: 1;">Mi Archivo</h2>
+                <button id="printButton" style="border: none; background: none; cursor: pointer; margin-top: 20px;">
+                    <img src="/img/impresora.png" alt="Imprimir" style="width: 30px; height: 30px;">
+                </button>
+            </div>
+            <div id="table-container" style="background-color: lightblue; border-radius: 20px; border: 1px solid; height: 70%; padding-top: 20px;">
                 <table style="width: 100%; border-radius: 20px; padding-top: 10px; border-collapse: collapse;">
                     <thead>
                         <tr>
@@ -68,7 +74,7 @@
                             <th>MONEDA</th>
                             <th>COMPRA</th>
                             <th>VENTA</th>
-                            <th>ACCION</th>
+                            <th>ACCIÓN</th>
                         </tr>
                     </thead>
                     <tbody id="table-body" style="background-color: aliceblue;">
@@ -115,5 +121,4 @@
         </footer>
     </div>
 </body>
-
 </html>

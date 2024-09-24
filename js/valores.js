@@ -82,6 +82,7 @@ const fetchData = (url, compraId, ventaId, nombreId, fechaActualizacionId) => {
                 venta: data.venta,
                 fechaActualizacion: new Date().toLocaleString()
             };
+            console.log('Cotización nueva:', nuevaCotizacion);
 
             // Añadir la nueva cotización al array y almacenarlo en localStorage
             storedCotizaciones.push(nuevaCotizacion);
@@ -198,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (storedFavorites) {
         favoritos.push(...storedFavorites);
         favoritos.forEach(favorite => {
+            console.log('Marcando favorito:', favorite);
             const icon = document.querySelector(`[data-cotizacion="${favorite.cotizacion}"]`);
             if (icon) {
                 icon.style.color = 'red';

@@ -174,16 +174,15 @@ function toggleFavorite(icon) {
                 venta: venta
             };
 
+            // Verificar si la cotización ya está en favoritos
             if (favoritos.some(fav => fav.cotizacion === favoriteData.cotizacion && fav.fecha === favoriteData.fecha)) {
-                // Si ya está en favoritos, lo eliminamos
-                const index = favoritos.findIndex(fav => fav.cotizacion === favoriteData.cotizacion && fav.fecha === favoriteData.fecha);
-                if (index > -1) {
-                    favoritos.splice(index, 1);
-                }
-                icon.style.color = 'grey';
+                // La cotización ya está en favoritos, mostrar alerta
+                alert('La cotización ya se encuentra almacenada.');
             } else {
+                // Agregar a favoritos
                 favoritos.push(favoriteData);
                 icon.style.color = 'red';
+                alert('La cotización se ha agregado correctamente.');
             }
 
             // Guardar la lista de favoritos en localStorage

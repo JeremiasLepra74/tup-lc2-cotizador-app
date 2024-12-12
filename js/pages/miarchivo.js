@@ -1,55 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const storedCotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
+    // Recuperar los favoritos desde localStorage
+    const storedFavorites = JSON.parse(localStorage.getItem('favoritos')) || [];
     const tableBody = document.getElementById('table-body');
 
-    const groupByDate = (cotizaciones) => {
-        return cotizaciones.reduce((grouped, cotizacion) => {
-            let fecha = cotizacion.fechaActualizacion.split(' ')[0]; 
-            fecha = fecha.replace(',', ''); 
+    // Función para formatear la fecha en formato DD/MM/YYYY
+    const formatDate = (date) => {
+        const [year, month, day] = date.split('-');
+        return `${day}/${month}/${year}`;
+    };
+
+    const groupByDate = (favorites) => {
+        return favorites.reduce((grouped, favorite) => {
+            // Extraer solo la fecha sin la hora
+            let fecha = favorite.fecha.split('T')[0]; // Esto eliminará la parte de la hora
             if (!grouped[fecha]) {
                 grouped[fecha] = [];
             }
-            grouped[fecha].push(cotizacion);
+            grouped[fecha].push(favorite);
             return grouped;
         }, {});
     };
 
     const renderTable = () => {
         tableBody.innerHTML = '';
-        if (storedCotizaciones.length === 0) {
-            document.querySelector('main').innerHTML = '<p>No hay cotizaciones guardadas hasta el momento.</p>';
+
+        if (storedFavorites.length === 0) {
+            document.querySelector('main').innerHTML = '<p>No hay favoritos guardados hasta el momento.</p>';
             return;
         }
 
-        const groupedCotizaciones = groupByDate(storedCotizaciones);
-        const sortedDates = Object.keys(groupedCotizaciones).sort((a, b) => new Date(b) - new Date(a));
+        // Agrupar los favoritos por fecha (solo por día)
+        const groupedFavorites = groupByDate(storedFavorites);
+
+        // Ordenar las fechas en orden descendente (más reciente primero)
+        const sortedDates = Object.keys(groupedFavorites).sort((a, b) => {
+            return new Date(b) - new Date(a);
+        });
 
         sortedDates.forEach((fecha) => {
+            // Convertir la fecha al formato DD/MM/YYYY
+            const formattedDate = formatDate(fecha);
+
+            // Crear una fila para la fecha
             const row = document.createElement('tr');
-            row.innerHTML = `<td colspan="5" style="text-align: left; font-weight: bold; background-color: #f1f1f1; line-height: 1.5;">${fecha}</td>`;
+            row.innerHTML = `<td colspan="5" style="text-align: left; font-weight: bold; background-color: #f1f1f1; line-height: 1.5;">${formattedDate}</td>`;
             tableBody.appendChild(row);
 
-            groupedCotizaciones[fecha].forEach((cotizacion) => {
+            // Agregar las cotizaciones agrupadas por fecha
+            groupedFavorites[fecha].forEach((favorite) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td></td>
-                    <td>${cotizacion.nombre}</td>
-                    <td>${cotizacion.compra}</td>
-                    <td>${cotizacion.venta}</td>
-                    <td><button onclick="removeCotizacion('${cotizacion.fechaActualizacion}', '${cotizacion.nombre}')">Eliminar</button></td>
+                    <td>${favorite.cotizacion}</td>
+                    <td>${favorite.compra}</td>
+                    <td>${favorite.venta}</td>
+                    <td><button onclick="removeFavorite('${favorite.fecha}', '${favorite.cotizacion}')">Eliminar</button></td>
                 `;
                 tableBody.appendChild(row);
             });
         });
     };
 
-    window.removeCotizacion = (fechaActualizacion, nombre) => {
-        const index = storedCotizaciones.findIndex(c => 
-            c.fechaActualizacion === fechaActualizacion && c.nombre === nombre
+    window.removeFavorite = (fecha, cotizacion) => {
+        const index = storedFavorites.findIndex(fav => 
+            fav.fecha === fecha && fav.cotizacion === cotizacion
         );
         if (index > -1) {
-            storedCotizaciones.splice(index, 1);
-            localStorage.setItem('cotizaciones', JSON.stringify(storedCotizaciones)); 
+            storedFavorites.splice(index, 1);
+            localStorage.setItem('favoritos', JSON.stringify(storedFavorites)); 
             renderTable();
         }
     };

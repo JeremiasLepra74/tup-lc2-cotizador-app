@@ -1,7 +1,6 @@
 // Obtener cotizaciones de LocalStorage
 function obtenerCotizaciones() {
-    const cotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
-    console.log(cotizaciones[0]); 
+    const cotizaciones = JSON.parse(localStorage.getItem('favoritos')) || [];
     return cotizaciones;
 }
 
@@ -11,20 +10,29 @@ function mostrarCotizaciones(filtro) {
     tbody.innerHTML = ''; // Limpiar tabla antes de mostrar
 
     const cotizaciones = obtenerCotizaciones();
+    console.log(cotizaciones);
+
+
     // Filtrar por moneda si se selecciona una
-    const cotizacionesFiltradas = filtro === 'TODAS' ? cotizaciones : cotizaciones.filter(c => c.nombre === filtro);
+    const cotizacionesFiltradas = filtro === 'TODAS' ? cotizaciones : cotizaciones.filter(c => c.cotizacion === filtro);
 
     // Agrupar por moneda
     const cotizacionesAgrupadas = cotizacionesFiltradas.reduce((acc, curr) => {
-        acc[curr.nombre] = acc[curr.nombre] || [];
-        acc[curr.nombre].push(curr);
+        acc[curr.cotizacion] = acc[curr.cotizacion] || [];
+        acc[curr.cotizacion].push(curr);
         return acc;
     }, {});
+
+    // Función para formatear la fecha en formato DD/MM/YYYY
+    const formatDate = (isoDate) => {
+        const [year, month, day] = isoDate.split('T')[0].split('-');
+        return `${day}/${month}/${year}`;
+    };
 
     // Iterar sobre las monedas y agregar filas
     for (const nombre in cotizacionesAgrupadas) {
         const cotizacionesPorNombre = cotizacionesAgrupadas[nombre];
-        cotizacionesPorNombre.sort((a, b) => new Date(b.fechaActualizacion) - new Date(a.fechaActualizacion)); // Ordenar por fecha
+        cotizacionesPorNombre.sort((a, b) => new Date(b.fecha) - new Date(a.fecha)); // Ordenar por fecha
 
         // Agregar fila de grupo con el nombre de la cotización
         const headerRow = document.createElement('tr');
@@ -36,7 +44,7 @@ function mostrarCotizaciones(filtro) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td></td> <!-- Columna vacía para alineación -->
-                <td>${cotizacion.fechaActualizacion}</td>
+                <td>${formatDate(cotizacion.fecha)}</td>
                 <td>${cotizacion.compra}</td>
                 <td>${cotizacion.venta}</td>
                 <td>${calcularVariacion(cotizacionesPorNombre, cotizacion)}</td>
@@ -46,31 +54,171 @@ function mostrarCotizaciones(filtro) {
     }
 }
 
-
-// Calcular variación (basado en el objeto)
-function calcularVariacion(cotizaciones, cotizacionActual) {
-    const cotizacionAnterior = cotizaciones.find(c => new Date(c.fechaActualizacion) < new Date(cotizacionActual.fechaActualizacion));
-    if (cotizacionAnterior) {
-        const variacion = ((cotizacionActual.venta - cotizacionAnterior.venta) / cotizacionAnterior.venta) * 100;
-        return `${variacion.toFixed(2)}%`;
-    }
-    return '-'; // Si no hay cotización anterior
-}
-
 // Cambiar el filtro de moneda
 document.getElementById('seleccionable').addEventListener('change', (event) => {
     const filtro = event.target.value;
+    console.log('Filtro seleccionado:', filtro);
     mostrarCotizaciones(filtro);
+    actualizarGrafica(filtro);
 });
 
 // Agregar evento DOMContentLoaded para cargar cotizaciones al iniciar la página
 document.addEventListener('DOMContentLoaded', () => {
     const cotizaciones = obtenerCotizaciones();
+    cotizaciones.forEach(c => console.log('Nombre de cotización:', c.nombre));
 
     // Verificar si hay cotizaciones almacenadas
     if (cotizaciones.length > 0) {
         mostrarCotizaciones('TODAS'); // Mostrar todas por defecto
+        actualizarGrafica('TODAS'); 
     } else {
         console.log('No hay cotizaciones almacenadas');
     }
 });
+
+// Calcular variación y retornar con el ícono correspondiente
+function calcularVariacion(cotizaciones, cotizacionActual) {
+    // Encontrar el índice de la cotización actual
+    const indiceActual = cotizaciones.findIndex(c => c.fecha === cotizacionActual.fecha);
+
+    // La cotización anterior es la que está justo después en la lista (porque ya están ordenadas)
+    const cotizacionAnterior = cotizaciones[indiceActual + 1];
+
+    if (cotizacionAnterior) {
+        let icono = '';
+
+        if (cotizacionActual.venta > cotizacionAnterior.venta) {
+            icono = '↑'; // Flecha hacia arriba para aumento
+        } else if (cotizacionActual.venta < cotizacionAnterior.venta) {
+            icono = '↓'; // Flecha hacia abajo para disminución
+        } else {
+            icono = '-'; // Sin cambio
+        }
+
+        return `${icono}`;
+    }
+
+    return '-'; // Si no hay cotización anterior
+}
+
+
+// Obtener una referencia al elemento canvas del DOM
+const $grafica = document.getElementById('miGrafica').getContext('2d');
+
+// Crear una instancia de la gráfica
+let miGrafica = new Chart($grafica, {
+    type: 'line',
+    data: {
+        labels: [],  // Se actualizarán dinámicamente
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Función para actualizar la gráfica
+function actualizarGrafica(filtro) {
+    const cotizaciones = obtenerCotizaciones();
+
+    // Filtrar las cotizaciones según el filtro
+    const cotizacionesFiltradas = filtro === 'TODAS' ? cotizaciones : cotizaciones.filter(c => c.cotizacion === filtro);
+
+    // Obtener las etiquetas (fechas) y datos de compra y venta
+    const etiquetas = cotizacionesFiltradas.map(c => new Date(c.fecha).toLocaleDateString());
+    const datosCompra = cotizacionesFiltradas.map(c => parseFloat(c.compra));
+    const datosVenta = cotizacionesFiltradas.map(c => parseFloat(c.venta));
+
+    // Actualizar los datos de la gráfica
+    miGrafica.data.labels = etiquetas;
+    miGrafica.data.datasets = [];
+
+    if (filtro === 'TODAS') {
+        // Mostrar solo los precios de compra
+        miGrafica.data.datasets.push({
+            label: 'Precio de Compra',
+            data: datosCompra,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            fill: true
+        });
+    } else {
+        // Mostrar tanto compra como venta
+        miGrafica.data.datasets.push(
+            {
+                label: 'Precio de Compra',
+                data: datosCompra,
+                borderColor: 'green',
+                fill: false
+            },
+            {
+                label: 'Precio de Venta',
+                data: datosVenta,
+                borderColor: 'red',
+                fill: false
+            }
+        );
+    }
+
+    miGrafica.update(); // Actualizar la gráfica con los nuevos datos
+}
+
+
+
+// Función para mostrar el formulario
+document.getElementById('mostrar-formulario').addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementById('email-form').style.display = 'flex';
+});
+  
+  // Función para cerrar el formulario
+function cerrarFormulario() {
+    document.getElementById('email-form').style.display = 'none';
+}
+  
+  // Función para enviar el email (usando EmailJS)
+function enviarEmail() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+  
+    if (!nombre || !email) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+  
+    // Aquí se obtienen los datos de la tabla
+    const datosTabla = obtenerDatosTabla();
+  
+    // Configuración de EmailJS (reemplaza con tus IDs)
+    emailjs.send("service_44i7yb9", "template_ycprvnq", {
+      from_name: nombre,
+      to_email: email,
+      message: datosTabla,
+    })
+      .then(() => {
+        alert('Email enviado con éxito.');
+        cerrarFormulario();
+      })
+      .catch(() => {
+        alert('Hubo un error al enviar el email. Inténtalo de nuevo más tarde.');
+      });
+}
+  
+  // Función para obtener los datos de la tabla
+function obtenerDatosTabla() {
+    const filas = document.querySelectorAll('#cotizaciones-tbody tr');
+    let datos = 'MONEDA | FECHA | COMPRA | VENTA | VARIACIÓN\n';
+  
+    filas.forEach(fila => {
+      datos += Array.from(fila.children).map(td => td.textContent).join(' | ') + '\n';
+    });
+  
+    return datos;
+}
+  
+

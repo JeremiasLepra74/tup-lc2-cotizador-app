@@ -8,6 +8,14 @@
     <link rel="icon" href="/img/icono_titulo_web3.png">
     <link rel="stylesheet" href="/css/pages/informes.css">
     <script src="./js/pages/informes.js" defer></script>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        emailjs.init('EQXng7YP4eMlFH5M3')
+    </script>
+
 </head>
 
 <body>
@@ -49,67 +57,33 @@
                             </div>
                             <select class="item2" name="seleccionable" id="seleccionable">
                                 <option value="TODAS">TODAS</option>
-                                <option value="Dólar Oficial">Dólar Oficial</option>
-                                <option value="Dólar Blue">Dólar Blue</option>
-                                <option value="Dólar Bolsa (MEP)">Dólar Bolsa (MEP)</option>
-                                <option value="Dólar Contado con Liqui (CCL)">Dólar Contado con Liqui (CCL)</option>
-                                <option value="Dólar Tarjeta">Dólar Tarjeta</option>
-                                <option value="Dólar Mayorista">Dólar Mayorista</option>
-                                <option value="Dólar Cripto">Dólar Cripto</option>
-                                <option value="Euro">Euro</option>
-                                <option value="Real Brasileño">Real Brasileño</option>
-                                <option value="Peso Chileno">Peso Chileno</option>
-                                <option value="Peso Uruguayo">Peso Uruguayo</option>
+                                <option value="Oficial">Dólar Oficial</option>
+                                <option value="Blue">Dólar Blue</option>
+                                <option value="Bolsa">Dólar Bolsa (MEP)</option>
+                                <option value="Contado con liquidación">Dólar Contado con Liqui (CCL)</option>
+                                <option value="Tarjeta">Dólar Tarjeta</option>
+                                <option value="Mayorista">Dólar Mayorista</option>
+                                <option value="Cripto">Dólar Cripto</option>
                             </select>
                         </div>
                     </div>
+                    <div style="text-align: left; margin-top: 10px;">
+                        <a href="#" id="mostrar-formulario" style="color: blue; text-decoration: underline;">Compartir información</a>
+                    </div>
                 </div>
                 <div class="info-informe">
-                    <p style="font-weight: bold; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 29px">
-                    Informe</p>
+                    <p class="informe-titulo">Informe</p>
                     <div>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="miGrafica"></canvas>
                     </div>
 
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                    <script>
-                        // Obtener una referencia al elemento canvas del DOM
-                        const $grafica = document.getElementById('myChart');
-                        // Las etiquetas son las que van en el eje X. 
-                        const etiquetas = ["Enero", "Febrero", "Marzo", "Abril"];
-                        // Podemos tener varios conjuntos de datos. Comencemos con uno
-                        const datosVentas2020 = {
-                            label: "Dólar Blue",
-                            data: [1000, 1200, 1500, 1700], // Actualiza la cantidad de datos si es necesario
-                            borderColor: "rgba(54, 162, 235, 1)",
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
-                            borderWidth: 1,
-                            fill: true
-                        };
-
-                        new Chart($grafica, {
-                            type: 'line', // Tipo de gráfica
-                            data: {
-                                labels: etiquetas,
-                                datasets: [
-                                    datosVentas2020,
-                                    // Aquí puedes agregar más conjuntos de datos si es necesario
-                                ]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                },
-                            }
-                        });
-                    </script>
+                    <!-- Script de Chart.js -->
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/Chart.min.js"></script>
                 </div>
-                <div class="info-tabla" style="background-color: lightblue; border-radius: 20px; border: 1px solid; padding: 20px; overflow: hidden;"> <!-- Ajustado -->
+
+                <div id="table-container" style="background-color: lightblue; border-radius: 20px; border: 1px solid;">
                     <table style="width: 100%; border-radius: 20px; border-collapse: collapse;">
-                        <thead style="padding-bottom: 10px;">
+                        <thead>
                             <tr>
                                 <th>MONEDA</th>
                                 <th>FECHA</th>
@@ -118,19 +92,29 @@
                                 <th>VARIACIÓN</th>
                             </tr>
                         </thead>
+                        <tbody id="cotizaciones-tbody" style="background-color: aliceblue;">
+                            <!-- Aquí se llenarán las filas de cotizaciones -->
+                        </tbody>
                     </table>
-                    <div id="table-container" style="max-height: 300px; overflow-y: auto; margin-top: 10px; border: 1px solid #ccc; border-radius: 10px;"> <!-- Añadido border -->
-                        <table style="width: 100%; border-radius: 20px; border-collapse: collapse;">
-                            <tbody id="cotizaciones-tbody" style="background-color: aliceblue;">
-                                <!-- Aquí se llenarán las filas de cotizaciones -->
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
 
-
-
             </div>
+
+            <div id="email-form" class="overlay" style="display: none;">
+                <div class="form-container">
+                    <h3>DATOS DEL DESTINATARIO</h3>
+                    <br>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" required /><br><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required /><br><br>
+
+                    <button onclick="cerrarFormulario()">CERRAR</button>
+                    <button onclick="enviarEmail()">ENVIAR</button>
+                </div>
+            </div>
+
         </main>
         <footer>
             <div class="conteiner-footer">

@@ -6,9 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
     <link rel="icon" href="/img/icono_titulo_web3.png">
-    <link rel="stylesheet" href="./css/pages/Contacto.css">
+    <link rel="stylesheet" href="./css/pages/contacto.css">
+    <script src="./js/pages/contacto.js" defer></script>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        emailjs.init('EQXng7YP4eMlFH5M3')
+    </script>
+
 </head>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <body>
     <div class="container">
         <header>
@@ -60,23 +68,29 @@
             <h1 style="font-weight: bold; text-align: center;">Contacto Web cotizaciones</h1>
             <div class="main-grid">
                 <div class="item-contacto">
-                    <p style="font-weight: bold; font-size: 20px;">DATOS DE CONTACTO</p>
-                    <form action="/accion.php" style="padding-top: 30px;">
-                        <div style="padding-bottom: 30px;">
-                            <label for="nombre" style="font-size: 18px; padding-right: 30px;">Nombre: </label>
-                            <input type="text" name="nombre" id="" size="" style="height: 35px; width: 300px;">
-                        </div>
-                        <div>
-                            <label for="email" style="font-size: 18px; padding-right: 50px;">Email: </label>
-                            <input type="email" name="email" id="" size="" style="height: 35px; width: 300px;">
-                        </div>
+                    <p class="titulo">DATOS DE CONTACTO</p>
+      
+                    <div class="campo">
+                        <label for="nombre">Nombre: </label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="email">Email: </label>
+                        <input type="email" id="email" required>
+                    </div>
 
-                        <div style="padding-top: 30px;">
-                            <label for="mensaje" style="font-size: 18px; padding-right: 30px;">Mensaje: </label>
-                            <input type="text" name="mensaje" id="mensaje" style="height: 150px; width: 300px;">
-                        </div>
+                    <div class="campo">
+                        <label for="mensaje">Mensaje: </label>
+                        <textarea id="mensaje" required></textarea>
+                    </div>
 
-                    </form>
+                    <div class="botones">
+                        <button id="limpiarBtn" onclick="limpiarCampos()">LIMPIAR</button>
+                        <button id="enviarBtn" onclick="enviarEmail()">ENVIAR</button>
+        
+                    </div>
+
                 </div>
                 <div class="item-parrafo">
                     <p>Si tiene alguna sugerencia o inconveniente por favor complete el siguiente formulario y envíenoslo. Lo contactaremos a la brevedad.</p>
@@ -114,10 +128,10 @@
                 <div>
                     <b>ACCESOS</b>
                     <ul>
-                        <li>Inicio</li>
-                        <li>Mi Archivo</li>
-                        <li>Informes</li>
-                        <li>Contáctenos</li>
+                        <li><a href="./index.html">Inicio</a></li>
+                        <li><a href="./miarchivo.html">Mi Archivo</a></li>
+                        <li><a href="./informes.html">Informes</a></li>
+                        <li><a href="./contacto.html">Contáctenos</a></li>
                     </ul>
                 </div>
                 <div>

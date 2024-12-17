@@ -10,16 +10,14 @@ function mostrarCotizaciones(filtro) {
     tbody.innerHTML = ''; // Limpiar tabla antes de mostrar
 
     const cotizaciones = obtenerCotizaciones();
-    console.log(cotizaciones);
-
 
     // Filtrar por moneda si se selecciona una
     const cotizacionesFiltradas = filtro === 'TODAS' ? cotizaciones : cotizaciones.filter(c => c.cotizacion === filtro);
 
     // Agrupar por moneda
     const cotizacionesAgrupadas = cotizacionesFiltradas.reduce((acc, curr) => {
-        acc[curr.cotizacion] = acc[curr.cotizacion] || [];
-        acc[curr.cotizacion].push(curr);
+        acc[curr.cotizacion] = acc[curr.cotizacion] || []; // se verifica si ya existe una clave con el nombre de la moneda en el acumulador
+        acc[curr.cotizacion].push(curr); 
         return acc;
     }, {});
 
@@ -57,7 +55,6 @@ function mostrarCotizaciones(filtro) {
 // Cambiar el filtro de moneda
 document.getElementById('seleccionable').addEventListener('change', (event) => {
     const filtro = event.target.value;
-    console.log('Filtro seleccionado:', filtro);
     mostrarCotizaciones(filtro);
     actualizarGrafica(filtro);
 });
@@ -65,7 +62,6 @@ document.getElementById('seleccionable').addEventListener('change', (event) => {
 // Agregar evento DOMContentLoaded para cargar cotizaciones al iniciar la página
 document.addEventListener('DOMContentLoaded', () => {
     const cotizaciones = obtenerCotizaciones();
-    cotizaciones.forEach(c => console.log('Nombre de cotización:', c.nombre));
 
     // Verificar si hay cotizaciones almacenadas
     if (cotizaciones.length > 0) {
@@ -88,11 +84,11 @@ function calcularVariacion(cotizaciones, cotizacionActual) {
         let icono = '';
 
         if (cotizacionActual.venta > cotizacionAnterior.venta) {
-            icono = '↑'; // Flecha hacia arriba para aumento
+            icono = '↑'; 
         } else if (cotizacionActual.venta < cotizacionAnterior.venta) {
-            icono = '↓'; // Flecha hacia abajo para disminución
+            icono = '↓'; 
         } else {
-            icono = '-'; // Sin cambio
+            icono = '-'; 
         }
 
         return `${icono}`;

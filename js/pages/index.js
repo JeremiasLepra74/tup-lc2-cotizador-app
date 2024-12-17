@@ -1,4 +1,4 @@
-// Mapea cada tipo de dólar con su respectiva sección en el DOM
+// Mapea cada tipo de dólar con su elemento del DOM correspondiente
 const sections = {
     "Dólar Oficial": document.querySelector('.item-oficial'),
     "Dólar Blue": document.querySelector('.item-blues'),
@@ -9,19 +9,14 @@ const sections = {
     "Dólar Cripto": document.querySelector('.item-cripto')
 };
 
-// Función para borrar todos los datos almacenados en localStorage
-function clearLocalStorage() {
-    localStorage.clear();
-    console.log('Todos los datos de localStorage han sido borrados.');
-}
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const fechaActualizacionElement = document.getElementById('fecha-actualizacion');
     if (fechaActualizacionElement) {
-        fechaActualizacionElement.innerText = new Date().toLocaleString(); // Actualiza la fecha de última actualización
+        fechaActualizacionElement.innerText = new Date().toLocaleString();
     }
 
+    // Llamados a las apis. Cada llamada pasa los parámetros necesarios para actualizar la información de compra, venta... en el DOM.
     fetchData("https://dolarapi.com/v1/dolares/oficial", 'compra', 'venta', 'nombre-oficial', 'fechaActualizacion-oficial');
     fetchData("https://dolarapi.com/v1/dolares/contadoconliqui", 'compraccl', 'ventaccl', 'nombre-ccl', 'fechaActualizacion-ccl');
     fetchData("https://dolarapi.com/v1/dolares/blue", 'comprablue', 'ventablue', 'nombre-blue', 'fechaActualizacion-blue');
@@ -33,10 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para actualizar la visibilidad de las secciones según la selección del usuario
     const updateVisibility = () => {
         const selected = document.getElementById('seleccionable').value;
-        // Itera sobre las secciones y actualiza su visibilidad
+        // Itera sobre las propiedades del objeto sections.
         for (const key in sections) {
+            // Se verifica si la propiedad actual (referenciada por key) realmente pertenece al objeto sections
             if (sections.hasOwnProperty(key)) {
                 if (sections[key]) {
+                    // Si el valor seleccionado es "TODAS" o es igual a la key, la propiedad style.display de la sección correspondiente se establece en 'grid' (haciendo que sea visible).
                     sections[key].style.display = (selected === 'TODAS' || selected === key) ? 'grid' : 'none';
                 }
             }
@@ -45,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Añade un evento al selector para cambiar la visibilidad cuando se cambia la selección
     document.getElementById('seleccionable').addEventListener('change', updateVisibility);
-    updateVisibility(); // Llamamos para asegurarnos de que la selección inicial se refleje correctamente
+    updateVisibility();
 
     // Actualiza los datos cada 5 minutos
     setInterval(() => {
@@ -58,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchData("https://dolarapi.com/v1/dolares/bolsa", 'compramep', 'ventamep', 'nombre-mep', 'fechaActualizacion-mep');
 
         if (fechaActualizacionElement) {
-            fechaActualizacionElement.innerText = new Date().toLocaleString(); // Actualiza la fecha de última actualización
+            fechaActualizacionElement.innerText = new Date().toLocaleString();
         }
     }, 5 * 60 * 1000);
 });
@@ -71,24 +68,9 @@ const fetchData = (url, compraId, ventaId, nombreId, fechaActualizacionId) => {
             }
             return response.json();
         })
+        // data es la respuesta en formato Json
         .then(data => {
             updatePrices(data, compraId, ventaId, nombreId, fechaActualizacionId); // Actualiza los precios en el DOM y almacena en localStorage
-        
-            const storedCotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
-
-            const nuevaCotizacion = {
-                nombre: data.nombre,
-                compra: data.compra,
-                venta: data.venta,
-                fechaActualizacion: new Date().toLocaleString()
-            };
-            console.log('Cotización nueva:', nuevaCotizacion);
-
-            // Añadir la nueva cotización al array y almacenarlo en localStorage
-            storedCotizaciones.push(nuevaCotizacion);
-            localStorage.setItem('cotizaciones', JSON.stringify(storedCotizaciones));
-
-            console.log('Cotizaciones guardadas:', storedCotizaciones);
 
         })
         .catch(error => {
@@ -103,16 +85,20 @@ const fetchData = (url, compraId, ventaId, nombreId, fechaActualizacionId) => {
 
 // Función para actualizar los precios en el DOM
 const updatePrices = (data, compraId, ventaId, nombreId, fechaActualizacionId) => {
+
+    // Toma los datos de la respuesta y los asigna a variables locales
     let preciocompra = data.compra;
     let precioventa = data.venta;
     let nombre = data.nombre;
     let fechaActualizacion = data.fechaActualizacion;
 
+    // Se obtienen los elementos del DOM
     const compraElement = document.getElementById(compraId);
     const ventaElement = document.getElementById(ventaId);
     const nombreElement = document.getElementById(nombreId);
     const fechaElement = document.getElementById(fechaActualizacionId);
 
+    // Se asignan los valores de la api a los elementos del DOM
     if (compraElement) {
         compraElement.innerHTML = preciocompra;
     }
@@ -126,8 +112,8 @@ const updatePrices = (data, compraId, ventaId, nombreId, fechaActualizacionId) =
         fechaElement.innerHTML = fechaActualizacion;
     }
 
-    // Almacenar los datos en localStorage
-    localStorage.setItem(compraId, JSON.stringify({
+    // Almacenar los datos en localStorage, setItem almacena un valor bajo una clave
+    localStorage.setItem(compraId, JSON.stringify({ // localStorage solo puede almacenar cadenas de texto
         compra: preciocompra,
         venta: precioventa,
         nombre: nombre,
@@ -135,26 +121,6 @@ const updatePrices = (data, compraId, ventaId, nombreId, fechaActualizacionId) =
     }));
 };
 
-// Recuperar datos almacenados en localStorage cuando el documento se haya cargado
-document.addEventListener('DOMContentLoaded', () => {
-    Object.keys(sections).forEach(key => {
-        const storedData = JSON.parse(localStorage.getItem(`${key}_compra`));
-        if (storedData) {
-            const compraElement = document.getElementById(`${key}_compra`);
-            const ventaElement = document.getElementById(`${key}_venta`);
-            const nombreElement = document.getElementById(`${key}_nombre`);
-            const fechaElement = document.getElementById(`${key}_fechaActualizacion`);
-            if (compraElement && ventaElement && nombreElement && fechaElement) {
-                compraElement.innerHTML = storedData.compra;
-                ventaElement.innerHTML = storedData.venta;
-                nombreElement.innerHTML = storedData.nombre;
-                fechaElement.innerHTML = storedData.fechaActualizacion;
-            }
-        }
-    });
-});
-
-// Lista para almacenar los favoritos
 const favoritos = [];
 
 // Función para manejar el clic en el ícono de corazón
@@ -165,6 +131,8 @@ function toggleFavorite(icon) {
     fetch(`https://dolarapi.com/v1/dolares/${cotizacion}`)
         .then(response => response.json())
         .then(data => {
+
+            // desestructuración de objetos
             const { compra, venta, nombre, fechaActualizacion } = data;
 
             const favoriteData = {
@@ -176,7 +144,6 @@ function toggleFavorite(icon) {
 
             // Verificar si la cotización ya está en favoritos
             if (favoritos.some(fav => fav.cotizacion === favoriteData.cotizacion && fav.fecha === favoriteData.fecha)) {
-                // La cotización ya está en favoritos, mostrar alerta
                 alert('La cotización ya se encuentra almacenada.');
             } else {
                 // Agregar a favoritos
@@ -192,13 +159,13 @@ function toggleFavorite(icon) {
         .catch(error => console.error('Error al obtener datos:', error));
 }
 
-// Recuperar la lista de favoritos desde localStorage
+// Se recupera la lista de favoritos desde localStorage y se agregan al array favoritos
 document.addEventListener('DOMContentLoaded', () => {
     const storedFavorites = JSON.parse(localStorage.getItem('favoritos'));
     if (storedFavorites) {
         favoritos.push(...storedFavorites);
         favoritos.forEach(favorite => {
-            console.log('Marcando favorito:', favorite);
+            // Busca un elemento que tenga un atributo data-cotizacion cuyo valor coincida con el valor de favorite.cotizacion
             const icon = document.querySelector(`[data-cotizacion="${favorite.cotizacion}"]`);
             if (icon) {
                 icon.style.color = 'red';

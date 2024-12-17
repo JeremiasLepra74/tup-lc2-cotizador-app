@@ -285,3 +285,108 @@ footer div ul li{
 .textalignend{
     text-align: end;
 }
+
+
+
+a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.main-container {
+    border: 1px solid blue;
+    border-radius: 30px;
+    padding: 20px;
+    margin: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.titulo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.campo input, .campo textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.campo textarea {
+    height: 90px;
+    resize: vertical;
+}
+
+/* Contenedor general de los botones */
+.botones {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 20px; /* Margen superior */
+    flex-wrap: wrap; /* Permite que los botones se adapten en pantallas pequeñas */
+}
+
+/* Estilos generales para los botones */
+.botones button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 120px; /* Ancho mínimo de los botones */
+    text-align: center; /* Asegura que el texto se centre */
+}
+
+/* Botón de Enviar (Verde) */
+#enviarBtn {
+    background-color: #28a745; /* Verde */
+}
+
+#enviarBtn:hover {
+    background-color: #218838; /* Verde más oscuro al pasar el mouse */
+}
+
+/* Botón de Limpiar (Azul) */
+#limpiarBtn {
+    background-color: #007bff; /* Azul */
+}
+
+#limpiarBtn:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    .botones {
+        flex-direction: column; /* Los botones se colocan uno debajo del otro en pantallas pequeñas */
+        gap: 10px; /* Espacio entre botones */
+    }
+
+    .botones button {
+        width: 100%; /* Los botones ocupan todo el ancho disponible */
+    }
+}
+
+
